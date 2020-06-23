@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block content %}
+
+
+<!--{{ questions_lst2 }}-->
+<!--{{ user_answers }}-->
+
+<table class="pure-table">
+    <tbody>
+    <tr>
+        <td>question</td>
+        {% for row in api_question_lst %}
+        <td>{{ row[0] }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>correct answer</td>
+        {% for row in api_question_lst %}
+        <td>{{ row[2] }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>your answer</td>
+        {% for answer in user_answers %}
+        <td>{{ answer }}</td>
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+
+<p>your score is {{ score }}</p>
+
+
+{% endblock %}

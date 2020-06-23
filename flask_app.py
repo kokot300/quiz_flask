@@ -2,10 +2,13 @@
 
 from flask import Flask, render_template, request
 from models import Question, Category
+import api_handler
+from random import shuffle
 
 app = Flask(__name__)
 
 questions_lst2 = []
+api_question_lst = []
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -80,10 +83,65 @@ def quiz():
 
 @app.route('/quiz_api', methods=['GET', 'POST'])
 def quiz_api():
+    global api_question_lst
+    categories = api_handler.get_cats()
     if request.method == 'GET':
-        return render_template('quiz_api.html')
+        return render_template('quiz_api_select_cat.html', categories=categories)
     else:
-        return render_template('quiz_api.html')
+        where = request.form.get('where')
+        print(where)
+        if where == '0':
+            api_question_lst = []
+            category = request.form.get('category')
+            if category == 'All':
+                category = None
+            print(category)
+            questions = api_handler.get_questions(category)
+            print(questions)
+            question_lst = []
+            for question in questions:
+                answers = question['incorrect_answers']
+                answers.append(question['correct_answer'])
+                shuffle(answers)
+                question_lst.append(question['question'])
+                question_lst.append(answers)
+                question_lst.append(question['correct_answer'])
+                api_question_lst.append(question_lst)
+                question_lst = []
+            return render_template('quiz_api_challenge.html', questions=api_question_lst)
+        elif where == '1':
+            answer_lst = []
+            try:
+                for answer in api_question_lst:
+                    ans = answer[2]
+                    answer_lst.append(ans)
+                question_id_lst = []
+                for question_id in api_question_lst:
+                    ques = question_id[0]
+                    question_id_lst.append(ques)
+
+                user_answers = []
+                first_question = request.form.get(question_id_lst[0])
+                second_question = request.form.get(question_id_lst[1])
+                third_question = request.form.get(question_id_lst[2])
+                fourth_question = request.form.get(question_id_lst[3])
+                fifth_question = request.form.get(question_id_lst[4])
+                user_answers.append(first_question)
+                user_answers.append(second_question)
+                user_answers.append(third_question)
+                user_answers.append(fourth_question)
+                user_answers.append(fifth_question)
+
+                score = 0
+                for i in range(5):
+                    if user_answers[i] == answer_lst[i]:
+                        score += 1
+            except:
+                pass
+            return render_template('quiz_api_results.html', api_question_lst=api_question_lst, user_answers=user_answers,
+                                   score=score)
+        else:
+            return render_template('quiz_api_select_cat.html', categories=categories)
 
 
 @app.route('/add_question', methods=['GET', 'POST'])
