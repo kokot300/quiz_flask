@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{% block content %}
+<p>{{ msg }}</p>
+<form action="/add_category" method="post" class="pure-form pure-form-aligned">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="category">type category</label>
+            <textarea id="category" name="category" required></textarea><br>
+        </div>
+    </fieldset>
+    <button type="submit" class="pure-button pure-button-primary">submit</button>
+</form>
+</div>
+{% endblock %}

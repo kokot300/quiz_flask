@@ -1,0 +1,46 @@
+.navigation{
+    background-color: rgb(246, 186, 134);
+    color: rgb(255, 255, 255);
+    height: calc(100vh);
+    width: 400px;
+    min-width: 400px;
+    overflow-y: auto;
+    transform: translateX(0px);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease-in-out 0s;
+    transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    display: block;
+}
+
+.main{
+    min-width: 880px;
+    flex: 2 1 0%;
+    display: block;
+    padding: 20px;
+    text-align: center;
+    background-color: #a5622e;
+}
+
+.all_div{
+    display: flex;
+    overflow: auto;
+}
+
+div{
+    display: block;
+}
+
+/*body{*/
+/*    background:url("../images/library-2279586_960_720.jpg");*/
+/*    background-size: cover;*/
+/*}*/
+
+/*form{*/
+/*    align-content: center;*/
+/*    align-items: center;*/
+/*    text-align: left;*/
+/*}*/

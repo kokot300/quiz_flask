@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+{% block content %}
+<p>{{ msg }}</p>
+<form action="/add_question" method="post" class="pure-form pure-form-aligned">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="question">type question</label>
+            <textarea id="question" name="question" required></textarea><br>
+        </div>
+        <div class="pure-control-group">
+            <label for="a">a: </label>
+            <input type="text" id="a" name="a" required/><br>
+            <label for="b">b: </label>
+            <input type="text" id="b" name="b" required/><br>
+            <label for="c">c: </label>
+            <input type="text" id="c" name="c" required/><br>
+            <label for="d">d: </label>
+            <input type="text" id="d" name="d" required/><br>
+        </div>
+        <div class="pure-control-group">
+            <label for="correct">correct answer</label>
+            <select name="correct" id="correct">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+            </select>
+        </div>
+        <div class="pure-control-group">
+            <label for="category">choose category</label>
+            <select name="category" id="category">
+                {% for row in categories %}
+                <option>{{ row[0] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </fieldset>
+    <button type="submit" class="pure-button pure-button-primary">submit</button>
+</form>
+</div>
+{% endblock %}
